@@ -55,6 +55,7 @@
 #define CHIP_VER_BCM43436b0               107
 #define CHIP_VER_BCM4389c1                108
 #define CHIP_VER_BCM43439a0               109
+#define CHIP_VER_BCM4359                  601
 #define CHIP_VER_BCM4398d0               1001
 #define CHIP_VER_BCM6715b0               1002
 #define CHIP_VER_BCM43684b0              1003
@@ -129,7 +130,10 @@
 #define FW_VER_18_38_18_mfg                514
 #define FW_VER_18_40_42_sta                515
 #define FW_VER_18_41_8_9_sta               516
-#define FW_VER_18_41_113_sta               517
+#define FW_VER_18_41_113_sta               517    
+
+// for CHIP_VER_BCM4359
+#define FW_VER_9_40_112_1_r712207_CY       610
 
 // for CHIP_VER_BCM43436b0
 #define FW_VER_9_88_4_65                   710
