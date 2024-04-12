@@ -15,7 +15,7 @@ ROMSIZE=0xC0000
 
 HNDRTE_RECLAIM_0_END=0x2132a8  # same as templateramend?
 
-PATCHSIZE=0x4000
+PATCHSIZE=0x4000  # we gain around 30K bytes free space by compressing the ucode, 0x4000 fits comfortably 
 PATCHSTART=$$(($(HNDRTE_RECLAIM_0_END) - $(PATCHSIZE)))
 
 # original ucode start and size

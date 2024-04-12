@@ -51,3 +51,29 @@ extern unsigned char templateram_bin[];
 __attribute__((at(TEMPLATERAMSTART_PTR, "", CHIP_VER_ALL, FW_VER_ALL)))
 GenericPatch4(templateram_bin, templateram_bin);
 #endif
+
+// below do not fix our issue
+
+// do not enable mmu protection by overwriting BL #1
+__attribute__((at(0x1DBB84, "", CHIP_VER_BCM4359, FW_VER_9_40_112_1_r712207_CY)))
+__attribute__((naked))
+void
+no_mmu_protection_patch(void)
+{
+    asm(
+         "nop\n"
+         "nop\n"
+         );
+}
+
+// do not enable mmu protection by overwriting BL #2
+__attribute__((at(0x1DBBA8, "", CHIP_VER_BCM4359, FW_VER_9_40_112_1_r712207_CY)))
+__attribute__((naked))
+void
+no_mmu_protection_patch_2(void)
+{
+    asm(
+         "nop\n"
+         "nop\n"
+         );
+}
