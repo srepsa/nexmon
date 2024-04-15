@@ -89,7 +89,7 @@ gen/flashpatches.mk: gen/nexmon2.pre $(OBJS) $(FW_PATH)/definitions.mk
 		-v ramstart=$(RAMSTART) \
 		-v out_file=fw_bcmdhd.bin \
 		-v src_file=gen/patch.elf \
-		-f $(NEXMON_ROOT)/buildtools/scripts/flashpatches.mk.awk > $@
+		-f $(NEXMON_ROOT)/buildtools/scripts/flashpatches.bcm89359.mk.awk > $@
 
 gen/memory.ld: $(FW_PATH)/definitions.mk
 	@printf "\033[0;31m  GENERATING LINKER FILE\033[0m %s\n" $@
@@ -154,9 +154,12 @@ endif
 dump-rom: fw_bcmdhd.bin
 	@printf "\033[0;31m  COPYING TO PHONE\033[0m %s => /online/%s\n" $< $<
 	scp $< tester@192.168.178.47:/tmp/
+	ssh tester@192.168.178.47 'rm -f /tmp/rom.bin'
 	ssh tester@192.168.178.47 "adb push /tmp/$< /tmp/"
-	@printf "\033[0;31m  LOADING FIRMWARE AND DUMPING ROM\033[0m /sdcard/fw_bcmdhd.bin, ROM => /sdcard/rom.bin\n"
+	ssh tester@192.168.178.47 "adb shell 'rm -f /online/rom.bin'"
+	@printf "\033[0;31m  LOADING FIRMWARE AND DUMPING ROM\033[0m /sdcard/fw_bcmdhd.bin, ROM => /online/rom.bin\n"
 	ssh tester@192.168.178.47 "adb shell '/online/dhdutil download /tmp/$< && /online/dhdutil membytes -r 0x185000 $(ROMSIZE) > /online/rom.bin'"
+	ssh tester@192.168.178.47 "adb pull /online/rom.bin /tmp/rom.bin && xxd /tmp/rom.bin | head"
 
 backup-firmware: FORCE
 	adb shell 'su -c "cp /vendor/firmware/fw_bcmdhd.bin /sdcard/fw_bcmdhd.orig.bin"'

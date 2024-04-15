@@ -37,7 +37,7 @@
 #include <firmware_version.h>   // definition of firmware version macros
 #include <patcher.h>
 
-// we can place this in a region that seemingly has at least 0x100 bytes unused
+// we manually place this in a region that seemingly has at least 0x100 bytes unused
 __attribute__((at(0x180AC0, "", CHIP_VER_BCM4359, FW_VER_9_40_112_1_r712207_CY)))
 __attribute__((optimize("O0")))
 void

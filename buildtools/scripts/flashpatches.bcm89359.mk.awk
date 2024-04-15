@@ -21,7 +21,7 @@ BEGIN {
 		printf "\t$(Q)$(CC)objcopy -O binary -j .text." $4 " $< gen/section.bin && dd if=gen/section.bin of=$@ bs=1 conv=notrunc seek=$$((0x%08x - 0x%08x))\n", fp_data_end, ramstart;
 		printf "\t$(Q)printf %08x%08x | xxd -r -p | dd of=$@ bs=1 conv=notrunc seek=$$((0x%08x - 0x%08x))\n", htonl(strtonum($1)), htonl(fp_data_end), fp_config_end, ramstart;
 		printf "\t$(Q)printf \"  FLASHPATCH %s @ %s\\n\"\n", $4, $1;
-		fp_data_end = fp_data_end + 16;
+		fp_data_end = fp_data_end + 8;
 		fp_config_end = fp_config_end + 8;
 	}
 }
